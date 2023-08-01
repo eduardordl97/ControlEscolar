@@ -1,0 +1,6 @@
+C:\Users\flapi\source\repos\ERDL01082023\BL\bin\Debug\BL.dll
+C:\Users\flapi\source\repos\ERDL01082023\BL\bin\Debug\BL.pdb
+C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.csproj.AssemblyReference.cache
+C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.csproj.CoreCompileInputs.cache
+C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.dll
+C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.pdb
