@@ -71,6 +71,43 @@ namespace PL.Controllers
             return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
         }
 
-        
+        [HttpPost]
+        public JsonResult ShowDataById(int idStudent)
+        {
+            BL.Students students = new BL.Students();
+            ML.Result result     = new ML.Result();
+            try
+            {
+                result = students.Sp_Consulta_Informacion_Alumno_ById(idStudent);
+            }
+            catch (Exception exc)
+            {
+                result.ErrorMessage = exc.Message.ToString();
+                result.Correct = false;
+                return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+            }
+            return Json(new { Correct = result.Correct, Error = result.ErrorMessage, Data = result.Object });
+        }
+
+        [HttpPost]
+        public JsonResult UpdateData(ML.Student student)
+        {
+            BL.Students students = new BL.Students();
+            ML.Result result = new ML.Result();
+            try
+            {
+                result = students.Sp_Edita_Informacion_Alumno(student);
+
+            }
+            catch (Exception exc)
+            {
+                result.ErrorMessage = exc.Message.ToString();
+                result.Correct = false;
+                return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+            }
+            return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+        }
+
+
     }
 }

@@ -156,6 +156,6 @@ ButtonSave = () => {
 
 ButtonEdit = () => {
     return `
-        <button class='btn btn-sm btn-success' onclick='fSaveData();'> <i class='fas fa-plus-circle mr-2'></i> Guardar </button>
+        <button class='btn btn-sm btn-success' onclick='fUpdateData();'> <i class='fas fa-plus-circle mr-2'></i> Guardar </button>
     `;
 }

@@ -40,8 +40,10 @@
                 type: "POST",
                 data: {},
                 beforeSend: () => {
+                    fAlertLoading();
                 }, success: (request) => {
                     if (request.Correct == true) {
+                        swal.close();
                         if (request.Html != "") {
                             document.getElementById('body-data').innerHTML = request.Html;
                             setTimeout(() => {
@@ -64,6 +66,7 @@
 
     fShowModal = () => {
         inputIdStudent.value = "";
+        document.getElementById('label-modal').textContent = "Registrar Alumno";
         fClearInputs(inputs);
         document.getElementById('container-option').innerHTML = ButtonSave();
         $("#modal-students").modal("show");
@@ -74,7 +77,7 @@
             iIdAlumno: inputIdStudent.value,
             sNombre: inputName.value,
             sApellidoPaterno: inputLastName.value,
-            sApellidoMaterno: inputLastName.value
+            sApellidoMaterno: inputSecondLastName.value
         };
         return dataSend;
     }
@@ -111,6 +114,77 @@
         }
     }
 
-    
+    fShowDataById = (idStudent) => {
+        try {
+            $.ajax({
+                url: "../Students/ShowDataById",
+                type: "POST",
+                data: { idStudent: parseInt(idStudent) },
+                beforeSend: () => {
+                    fAlertLoading();
+                }, success: (request) => {
+                    if (request.Correct) {
+                        swal.close();
+                        $("#button-save").remove();
+                        $("#modal-students").modal("show");
+                        document.getElementById('label-modal').textContent = "Editar Alumno";
+                        document.getElementById('container-option').innerHTML = ButtonEdit();
+
+                        inputIdStudent.value        = idStudent;
+                        inputName.value             = request.Data.sNombre;
+                        inputLastName.value         = request.Data.sApellidoPaterno;
+                        inputSecondLastName.value   = request.Data.sApellidoMaterno;
+
+                        inputName.style.borderWidth             = '2px';
+                        inputName.style.borderColor             = 'green';
+                        inputLastName.style.borderWidth         = '2px';
+                        inputLastName.style.borderColor         = 'green';
+                        inputSecondLastName.style.borderWidth   = '2px';
+                        inputSecondLastName.style.borderColor   = 'green';
+
+                    } else {
+                        fDynamicAlertsValidations('Atención', request.Error, 'error', 3000, null);
+                    }
+                }, error: (exception) => {
+                    fDynamicAlertsValidations('Error!', exception, 'error', 4000, null);
+                }
+            });
+
+        } catch (error) {
+            fDynamicAlertsValidations('Error!', error, 'error', 4000, null);
+        }
+    }
+
+    fUpdateData = () => {
+        try {
+            const validate = fValidationsInputs(inputs);
+            if (validate) {
+                $.ajax({
+                    url: '../Students/UpdateData',
+                    type: 'POST',
+                    data: fDataSend(),
+                    beforeSend: () => {
+                        fAlertLoading();
+                    }, success: (request) => {
+                        if (request.Correct == true && request.Error == 'none') {
+                            $("#modal-students").modal("hide");
+                            swal.close();
+                            fAlertSuccessEdit();
+                            fClearInputs(inputs);
+                            setTimeout(() => {
+                                fShowData();
+                            }, 1000);
+                        }  else {
+                            fDynamicAlertsValidations('Error!', request.Error, 'error', 3000, null);
+                        }
+                    }, error: (exception) => {
+                        fDynamicAlertsValidations('Error!', exception, 'error', 4000, null);
+                    }
+                });
+            }
+        } catch (error) {
+            fDynamicAlertsValidations('Error!', error, 'error', 4000, null);
+        }
+    }
 
 });

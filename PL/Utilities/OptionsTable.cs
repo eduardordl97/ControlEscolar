@@ -9,7 +9,7 @@ namespace PL.Utilities
     {
         public static string ButtonEdit(int id)
         {
-            return "<button class='btn btn-sm btn-outline-warning me-1' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='fShowData(" + id + ");'><i class='fas fa-edit'></i></button>";
+            return "<button class='btn btn-sm btn-outline-warning me-1' data-toggle='tooltip' data-placement='bottom' title='Editar' onclick='fShowDataById(" + id + ");'><i class='fas fa-edit'></i></button>";
         }
 
         public static string ButtonInactive(int id)
