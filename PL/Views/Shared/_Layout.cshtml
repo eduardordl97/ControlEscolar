@@ -1,34 +1,52 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
-    @Styles.Render("~/Content/css")
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="~/Assets/datatables/css/dataTables.bootstrap4.min.css" />
+    <link rel="stylesheet" type="text/css" href="~/Assets/bootstrap/css/bootstrap-5.1.3.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+
+    <script type="text/javascript" src="~/Assets/datatables/js/datatables.min.js"></script>
+    <script type="text/javascript" src="~/Assets/datatables/js/dataTables.bootstrap4.min.js"></script>
+    @*@Styles.Render("~/Content/css")*@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-                </ul>
-            </div>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded">
+        @*<a class="navbar-brand ms-4" href="#">Navbar</a>*@
+        @Html.ActionLink("Control Escolar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand ms-4" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav">
+                @*<li class="nav-item active">
+                    <a class="nav-link" href="#"> @Html.ActionLink("Alumnos", "Students", "Students") <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Alumnos", "Students", "Students")
+                </li>*@
+                <li class="nav-item">@Html.ActionLink("Alumnos", "Students", "Students", null, new { @class = "nav-link" })</li>
+                @*<li class="nav-item">
+                    <a class="nav-link disabled" href="#">Disabled</a>
+                </li>*@
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
+            </form>
         </div>
-    </div>
-    <div class="container body-content">
+    </nav>
+    
+    <div class="container body-content mb-4">
         @RenderBody()
         <hr />
         <footer>
@@ -36,8 +54,8 @@
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

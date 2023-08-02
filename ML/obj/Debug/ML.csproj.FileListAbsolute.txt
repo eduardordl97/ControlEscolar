@@ -1,0 +1,6 @@
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\ML\bin\Debug\ML.dll
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\ML\bin\Debug\ML.pdb
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\ML\obj\Debug\ML.csproj.CoreCompileInputs.cache
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\ML\obj\Debug\ML.dll
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\ML\obj\Debug\ML.pdb
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\ML\obj\Debug\ML.csproj.AssemblyReference.cache

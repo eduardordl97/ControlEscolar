@@ -4,3 +4,14 @@ C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.csproj.AssemblyReferenc
 C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.csproj.CoreCompileInputs.cache
 C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.dll
 C:\Users\flapi\source\repos\ERDL01082023\BL\obj\Debug\BL.pdb
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\obj\Debug\BL.csproj.AssemblyReference.cache
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\obj\Debug\BL.csproj.CoreCompileInputs.cache
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\bin\Debug\BL.dll
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\bin\Debug\BL.pdb
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\bin\Debug\DL.dll
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\bin\Debug\ML.dll
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\bin\Debug\DL.pdb
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\bin\Debug\ML.pdb
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\obj\Debug\BL.csproj.CopyComplete
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\obj\Debug\BL.dll
+C:\Users\flapi\OneDrive\Escritorio\Examen\ControlEscolar\ControlEscolar\BL\obj\Debug\BL.pdb
