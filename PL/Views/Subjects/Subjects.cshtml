@@ -1,14 +1,13 @@
 ﻿
 @{
-    ViewBag.Title = "Students";
+    ViewBag.Title = "Subjects";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 <div class="card shadow mb-4">
     <div class="row card-header py-3 animate__animated animate__fadeIn">
         <div class="text-start m-0 col-6">
-            <h4>Alumnos</h4>
+            <h4>Materias</h4>
         </div>
         <div class="text-end m-0 col-6" id="content-newdata">
             <button class='btn btn-sm btn-success' onclick='fShowModal();'> <i class='fas fa-plus-circle mr-2'></i> Agregar </button>
@@ -20,8 +19,7 @@
                 <thead>
                     <tr>
                         <th class="txt-b">Nombre</th>
-                        <th class="txt-b">Apellido Paterno</th>
-                        <th class="txt-b">Apellido Materno</th>
+                        <th class="txt-b">Costo</th>
                         <th class="txt-b">Fecha Alta</th>
                         <th class="txt-b">Estado</th>
                         <th class="txt-b">Opciones</th>
@@ -34,7 +32,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="modal-students" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+<div class="modal fade" id="modal-subjects" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -42,22 +40,17 @@
                 <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close" id="icon-closemodal"></button>
             </div>
             <div class="modal-body">
-                <form id="form-students">
+                <form id="form-subjects">
                     <div class="col-md-12 row">
-                        <div class="form-group col-md-12 mb-2">
-                            <label class=" mb-2" title="Longitud permitida 50 caracteres">Nombre:</label>
+                        <div class="form-group col-md-6 mb-2">
+                            <label class="mb-2" title="Longitud permitida 50 caracteres">Nombre:</label>
                             <input class="form-control form-control-sm" id="input-name" type="text" tabindex="1" minlength="2" maxlength="50" data-placeholder="Nombre" />
                             <label id="label-input-name" class="mt-1 d-none"></label>
                         </div>
                         <div class="form-group col-md-6 mb-2">
-                            <label class="mb-2" title="Longitud permitida 50 caracteres">Apellido Paterno:</label>
-                            <input class="form-control form-control-sm" id="input-last-name" type="text" tabindex="2" minlength="2" maxlength="50" data-placeholder="Apellido Paterno" />
-                            <label id="label-input-last-name" class="mt-1 d-none"></label>
-                        </div>
-                        <div class="form-group col-md-6 mb-2">
-                            <label class="mb-2" title="Longitud permitida 50 caracteres">Apellido Materno:</label>
-                            <input class="form-control form-control-sm" id="input-second-last-name" type="text" tabindex="3" minlength="2" maxlength="50" data-placeholder="Apellido Materno" />
-                            <label id="label-input-second-last-name" class="mt-1 d-none"></label>
+                            <label class="mb-2" >Costo:</label>
+                            <input class="form-control form-control-sm" id="input-cost" type="number" tabindex="2" data-placeholder="Costo" />
+                            <label id="label-input-cost" class="mt-1 d-none"></label>
                         </div>
                         <input class="form-control form-control-sm" id="input-id-student" type="hidden" />
                     </div>
@@ -71,7 +64,7 @@
                     <span class="text"> Cerrar</span>
                 </button>
                 <div id="container-option">
-                    
+
                 </div>
             </div>
         </div>
@@ -79,8 +72,4 @@
 </div>
 
 
-<script type="text/javascript" src="~/Scripts/Students/students.js"></script>
-
-
-
-
+<script type="text/javascript" src="~/Scripts/Subjects/subjects.js"></script>

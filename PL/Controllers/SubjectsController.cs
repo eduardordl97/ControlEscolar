@@ -8,42 +8,42 @@ using System.Web.Mvc;
 
 namespace PL.Controllers
 {
-    public class StudentsController : Controller
+    public class SubjectsController : Controller
     {
-        public ActionResult Students()
+        public ActionResult Subjects()
         {
             return View();
         }
 
         [HttpPost]
-        public JsonResult LoadDataStudents()
+        public JsonResult LoadDataSubjects()
         {
-            BL.Students students    = new BL.Students();
+            BL.Subjects subjects    = new BL.Subjects();
             ML.Result result        = new ML.Result();
             StringBuilder tableHtml = new StringBuilder();
             try
             {
-                result = students.Sp_Consulta_Informacion_Alumnos();
-                if (result.Objects != null)
+                result = subjects.Sp_Consulta_Informacion_Alumnos();
+                if(result.Objects != null)
                 {
                     if (result.Objects.Count > 0)
                     {
-                        foreach (ML.Student student in result.Objects)
+                        foreach (ML.Subject subject in result.Objects)
                         {
-                            string activeInactive = (student.bEstatus == true) ? "<span class='badge badge-pill bg-success'>Activo</span>" : "<span class='badge badge-pill bg-danger'>Inactivo</span>";
-                            string buttonActiveInactive = (student.bEstatus == true) ? OptionsTable.ButtonInactive(student.iIdAlumno) : OptionsTable.ButtonActive(student.iIdAlumno);
+                            string activeInactive = (subject.bEstatus == true) ? "<span class='badge badge-pill bg-success'>Activo</span>" : "<span class='badge badge-pill bg-danger'>Inactivo</span>";
+                            string buttonActiveInactive = (subject.bEstatus == true) ? OptionsTable.ButtonInactive(subject.iIdMateria) : OptionsTable.ButtonActive(subject.iIdMateria);
                             string html = "<tr>";
-                            html += "<td>" + student.sNombre + " </td>" +
-                                    "<td>" + student.sApellidoPaterno + "</td>" +
-                                    "<td>" + student.sApellidoMaterno + "</td>" +
-                                    "<td>" + student.sFechaHoraAlta + "</td>" +
+                            html += "<td>" + subject.sNombre + " </td>" +
+                                    "<td>$ " + subject.sCosto + "</td>" +
+                                    "<td>" + subject.sFechaHoraAlta + "</td>" +
                                     "<td>" + activeInactive + "</td>" +
-                                    "<td>" + OptionsTable.ButtonEdit(student.iIdAlumno) + buttonActiveInactive + "</td>";
+                                    "<td>" + OptionsTable.ButtonEdit(subject.iIdMateria) + buttonActiveInactive + "</td>";
                             html += "</tr>";
                             tableHtml.Append(html);
                         }
                     }
                 }
+                
                 result.Correct = true;
             }
             catch (Exception exc)
@@ -56,14 +56,14 @@ namespace PL.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveData(ML.Student student)
+        public JsonResult SaveData(ML.Subject subject)
         {
-            BL.Students students = new BL.Students();
-            ML.Result result     = new ML.Result();
+            BL.Subjects subjects = new BL.Subjects();
+            ML.Result result = new ML.Result();
             try
             {
-                result = students.Sp_Inserta_Informacion_Alumno(student);
-                
+                result = subjects.Sp_Inserta_Informacion_Materia(subject);
+
             }
             catch (Exception exc)
             {
@@ -78,7 +78,7 @@ namespace PL.Controllers
         public JsonResult ShowDataById(int idSubject)
         {
             BL.Subjects subjects = new BL.Subjects();
-            ML.Result result     = new ML.Result();
+            ML.Result result = new ML.Result();
             try
             {
                 result = subjects.Sp_Consulta_Informacion_Materia_ById(idSubject);
@@ -93,13 +93,13 @@ namespace PL.Controllers
         }
 
         [HttpPost]
-        public JsonResult UpdateData(ML.Student student)
+        public JsonResult UpdateData(ML.Subject subject)
         {
-            BL.Students students = new BL.Students();
+            BL.Subjects subjects = new BL.Subjects();
             ML.Result result = new ML.Result();
             try
             {
-                result = students.Sp_Edita_Informacion_Alumno(student);
+                result = subjects.Sp_Edita_Informacion_Materia(subject);
 
             }
             catch (Exception exc)
@@ -112,13 +112,13 @@ namespace PL.Controllers
         }
 
         [HttpPost]
-        public JsonResult ActiveInactiveData(int idStudent, int status)
+        public JsonResult ActiveInactiveData(int idSubject, int status)
         {
-            BL.Students students = new BL.Students();
+            BL.Subjects subjects = new BL.Subjects();
             ML.Result result = new ML.Result();
             try
             {
-                result = students.Sp_Cambia_Estatus_Alumno(idStudent,status);
+                result = subjects.Sp_Cambia_Estatus_Materia(idSubject, status);
             }
             catch (Exception exc)
             {
@@ -128,7 +128,5 @@ namespace PL.Controllers
             }
             return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
         }
-
-
     }
 }

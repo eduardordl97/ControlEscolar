@@ -1,16 +1,13 @@
 ﻿document.addEventListener('DOMContentLoaded', () => {
 
-    const inputName             = document.getElementById('input-name');
-    const inputLastName         = document.getElementById('input-last-name');
-    const inputSecondLastName   = document.getElementById('input-second-last-name');
-    const inputIdStudent        = document.getElementById('input-id-student');
+    const inputName = document.getElementById('input-name');
+    const inputCost = document.getElementById('input-cost');
+    const inputIdSubject = document.getElementById('input-id-student');
 
-
-    const inputs = [inputName, inputLastName, inputSecondLastName];
+    const inputs = [inputName, inputCost];
 
     inputName.addEventListener('keyup', () => { fValidatorStyle(inputName.id, inputName.type, 'label-' + inputName.id); });
-    inputLastName.addEventListener('keyup', () => { fValidatorStyle(inputLastName.id, inputLastName.type, 'label-' + inputLastName.id); });
-    inputSecondLastName.addEventListener('keyup', () => { fValidatorStyle(inputSecondLastName.id, inputSecondLastName.type, 'label-' + inputSecondLastName.id); });
+    inputCost.addEventListener('keyup', () => { fValidatorStyle(inputCost.id, inputCost.type, 'label-' + inputCost.id); });
 
     fLoadTable = () => {
         $("#table-dataTable").DataTable({
@@ -22,11 +19,11 @@
             buttons: [
                 {
                     extend: 'excelHtml5',
-                    title: 'Alumnos'
+                    title: 'Materias'
                 },
                 {
                     extend: 'csvHtml5',
-                    title: 'Alumnos'
+                    title: 'Materias'
                 }
             ]
         });
@@ -37,7 +34,7 @@
         table.destroy();
         try {
             $.ajax({
-                url: "../Students/LoadDataStudents",
+                url: "../Subjects/LoadDataSubjects",
                 type: "POST",
                 data: {},
                 beforeSend: () => {
@@ -56,7 +53,7 @@
                     } else {
                         fDynamicAlertsValidations('Error!', request.Error, 'error', 3000, null);
                     }
-                   
+
                 }, error: (exception) => {
                     fDynamicAlertsValidations('Error!', exception, 'error', 4000, null);
                 }
@@ -68,19 +65,18 @@
     fShowData();
 
     fShowModal = () => {
-        inputIdStudent.value = "";
-        document.getElementById('label-modal').textContent = "Registrar Alumno";
+        inputIdSubject.value = "";
+        document.getElementById('label-modal').textContent = "Registrar Materia";
         fClearInputs(inputs);
         document.getElementById('container-option').innerHTML = ButtonSave();
-        $("#modal-students").modal("show");
+        $("#modal-subjects").modal("show");
     }
 
     fDataSend = () => {
         const dataSend = {
-            iIdAlumno: inputIdStudent.value,
+            iIdMateria: inputIdSubject.value,
             sNombre: inputName.value,
-            sApellidoPaterno: inputLastName.value,
-            sApellidoMaterno: inputSecondLastName.value
+            dCosto: inputCost.value,
         };
         return dataSend;
     }
@@ -90,14 +86,14 @@
             const validate = fValidationsInputs(inputs);
             if (validate) {
                 $.ajax({
-                    url: '../Students/SaveData',
+                    url: '../Subjects/SaveData',
                     type: 'POST',
                     data: fDataSend(),
                     beforeSend: () => {
                         fAlertLoading();
                     }, success: (request) => {
                         if (request.Correct == true && request.Error == 'none') {
-                            $("#modal-students").modal("hide");
+                            $("#modal-subjects").modal("hide");
                             swal.close();
                             fAlertSuccessSave();
                             setTimeout(() => {
@@ -117,33 +113,30 @@
         }
     }
 
-    fShowDataById = (idStudent) => {
+    fShowDataById = (idSubject) => {
         try {
             $.ajax({
-                url: "../Students/ShowDataById",
+                url: "../Subjects/ShowDataById",
                 type: "POST",
-                data: { idStudent: parseInt(idStudent) },
+                data: { idSubject: parseInt(idSubject) },
                 beforeSend: () => {
                     fAlertLoading();
                 }, success: (request) => {
                     if (request.Correct) {
                         swal.close();
                         $("#button-save").remove();
-                        $("#modal-students").modal("show");
-                        document.getElementById('label-modal').textContent = "Editar Alumno";
+                        $("#modal-subjects").modal("show");
+                        document.getElementById('label-modal').textContent = "Editar Materia";
                         document.getElementById('container-option').innerHTML = ButtonEdit();
 
-                        inputIdStudent.value        = idStudent;
-                        inputName.value             = request.Data.sNombre;
-                        inputLastName.value         = request.Data.sApellidoPaterno;
-                        inputSecondLastName.value   = request.Data.sApellidoMaterno;
+                        inputIdSubject.value = idSubject;
+                        inputName.value      = request.Data.sNombre;
+                        inputCost.value      = request.Data.dCosto;
 
-                        inputName.style.borderWidth             = '2px';
-                        inputName.style.borderColor             = 'green';
-                        inputLastName.style.borderWidth         = '2px';
-                        inputLastName.style.borderColor         = 'green';
-                        inputSecondLastName.style.borderWidth   = '2px';
-                        inputSecondLastName.style.borderColor   = 'green';
+                        inputName.style.borderWidth = '2px';
+                        inputName.style.borderColor = 'green';
+                        inputCost.style.borderWidth = '2px';
+                        inputCost.style.borderColor = 'green';
 
                     } else {
                         fDynamicAlertsValidations('Atención', request.Error, 'error', 3000, null);
@@ -163,21 +156,21 @@
             const validate = fValidationsInputs(inputs);
             if (validate) {
                 $.ajax({
-                    url: '../Students/UpdateData',
+                    url: '../Subjects/UpdateData',
                     type: 'POST',
                     data: fDataSend(),
                     beforeSend: () => {
                         fAlertLoading();
                     }, success: (request) => {
                         if (request.Correct == true && request.Error == 'none') {
-                            $("#modal-students").modal("hide");
+                            $("#modal-subjects").modal("hide");
                             swal.close();
                             fAlertSuccessEdit();
                             fClearInputs(inputs);
                             setTimeout(() => {
                                 fShowData();
                             }, 1000);
-                        }  else {
+                        } else {
                             fDynamicAlertsValidations('Error!', request.Error, 'error', 3000, null);
                         }
                     }, error: (exception) => {
@@ -190,19 +183,19 @@
         }
     }
 
-    fActiveData = (idStudent, status) => {
+    fActiveData = (idSubject, status) => {
         try {
-            if (parseInt(idStudent) > 0) {
+            if (parseInt(idSubject) > 0) {
                 $.ajax({
-                    url: "../Students/ActiveInactiveData",
+                    url: "../Subjects/ActiveInactiveData",
                     type: "POST",
-                    data: { idStudent: parseInt(idStudent), status: parseInt(status) },
+                    data: { idSubject: parseInt(idSubject), status: parseInt(status) },
                     beforeSend: () => {
                         fAlertLoading();
                     }, success: (request) => {
                         if (request.Correct) {
                             swal.close();
-                            fDynamicAlertsValidations('Activo', 'El Alumno ha sido dado de alta correctamente', 'success', 2000, null);
+                            fDynamicAlertsValidations('Activo', 'La Materia ha sido dado de alta correctamente', 'success', 2000, null);
                             setTimeout(() => {
                                 fShowData();
                             }, 2000);
@@ -222,19 +215,19 @@
         }
     }
 
-    fInactiveData = (idStudent, status) => {
+    fInactiveData = (idSubject, status) => {
         try {
-            if (parseInt(idStudent) > 0) {
+            if (parseInt(idSubject) > 0) {
                 $.ajax({
-                    url: "../Students/ActiveInactiveData",
+                    url: "../Subjects/ActiveInactiveData",
                     type: "POST",
-                    data: { idStudent: parseInt(idStudent), status: parseInt(status) },
+                    data: { idSubject: parseInt(idSubject), status: parseInt(status) },
                     beforeSend: () => {
                         fAlertLoading();
                     }, success: (request) => {
                         if (request.Correct) {
                             swal.close();
-                            fDynamicAlertsValidations('Inactivo', 'El Alumno ha sido dado de baja correctamente', 'success', 2000, null);
+                            fDynamicAlertsValidations('Inactiva', 'La Materia ha sido dado de baja correctamente', 'success', 2000, null);
                             setTimeout(() => {
                                 fShowData();
                             }, 2000);

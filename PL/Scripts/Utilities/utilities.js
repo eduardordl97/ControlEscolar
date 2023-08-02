@@ -9,8 +9,8 @@ fValidatorStyle = (id, type, label) => {
             textLabel = 'Este campo solo puede contener letras';
             break;
         case 'number':
-            regex = /^[0-9]+$/;
-            textLabel = 'Este campo solo puede contener números';
+            regex = /^[0-9]+([.][0-9]+)?$/;
+            textLabel = 'Este campo solo puede contener números enteros o decimales';
             break;
         case 'alphanumeric':
             regex = /^[A-Za-zÁÉÍÓÚáéíóúñÑ0-9\s]+$/g;

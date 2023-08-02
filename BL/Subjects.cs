@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BL
 {
-    public class Students : DL.Connection
+    public class Subjects : DL.Connection
     {
         public ML.Result Sp_Consulta_Informacion_Alumnos()
         {
@@ -16,30 +16,29 @@ namespace BL
             try
             {
                 this.Conectar();
-                SqlCommand command = new SqlCommand("sp_Consulta_Informacion_Alumnos", this.conexion) { CommandType = CommandType.StoredProcedure };
+                SqlCommand command = new SqlCommand("sp_Consulta_Informacion_Materias", this.conexion) { CommandType = CommandType.StoredProcedure };
                 SqlDataReader dataReader = command.ExecuteReader();
                 if (dataReader.HasRows)
                 {
                     result.Objects = new List<object>();
                     while (dataReader.Read())
                     {
-                        ML.Student student = new ML.Student();
-                        student.iIdAlumno           = Convert.ToInt32(dataReader["IdAlumno"]);
-                        student.sNombre             = dataReader["Nombre"].ToString();
-                        student.sApellidoPaterno    = dataReader["ApellidoPaterno"].ToString();
-                        student.sApellidoMaterno    = dataReader["ApellidoMaterno"].ToString();
-                        student.sFechaHoraAlta      = Convert.ToDateTime(dataReader["FechaHoraAlta"]).ToString("dd-MM-yyyy");
-                        student.bEstatus            = (dataReader["Estatus"].ToString() == "True") ? true : false;
+                        ML.Subject subject      = new ML.Subject();
+                        subject.iIdMateria      = Convert.ToInt32(dataReader["IdMateria"]);
+                        subject.sNombre         = dataReader["Nombre"].ToString();
+                        subject.sCosto          = Convert.ToDecimal(dataReader["Costo"].ToString()).ToString("N2");
+                        subject.sFechaHoraAlta  = Convert.ToDateTime(dataReader["FechaHoraAlta"]).ToString("dd-MM-yyyy");
+                        subject.bEstatus        = (dataReader["Estatus"].ToString() == "True") ? true : false;
 
-                        result.Objects.Add(student);
+                        result.Objects.Add(subject);
                         result.ErrorMessage = "none";
-                        result.Correct      = true;
+                        result.Correct = true;
                     }
                 }
                 else
                 {
                     result.ErrorMessage = "La consulta no retornó ningún dato";
-                    result.Correct      = false;
+                    result.Correct = false;
                 }
                 command.Parameters.Clear();
                 command.Dispose();
@@ -47,9 +46,9 @@ namespace BL
             }
             catch (Exception exc)
             {
-                result.Correct      = false;
+                result.Correct = false;
                 result.ErrorMessage = exc.Message;
-                result.Ex           = exc;
+                result.Ex = exc;
 
             }
             finally
@@ -59,100 +58,15 @@ namespace BL
             return result;
         }
 
-        public ML.Result Sp_Inserta_Informacion_Alumno(ML.Student student)
+        public ML.Result Sp_Inserta_Informacion_Materia(ML.Subject subject)
         {
             ML.Result result = new ML.Result();
             try
             {
                 this.Conectar();
-                SqlCommand command = new SqlCommand("sp_Inserta_Informacion_Alumno", this.conexion) { CommandType = CommandType.StoredProcedure };
-                command.Parameters.Add(new SqlParameter("@Nombre", student.sNombre));
-                command.Parameters.Add(new SqlParameter("@ApellidoPaterno", student.sApellidoPaterno));
-                command.Parameters.Add(new SqlParameter("@ApellidoMaterno", student.sApellidoMaterno));
-                if (command.ExecuteNonQuery() > 0)
-                {
-                    result.ErrorMessage = "none";
-                    result.Correct      = true;
-                }
-                else
-                {
-                    result.ErrorMessage = "No se pudo registrar el alumno";
-                    result.Correct      = false;
-                }
-                command.Parameters.Clear();
-                command.Dispose();
-            }
-            catch (Exception exc)
-            {
-                result.Correct      = false;
-                result.ErrorMessage = exc.Message;
-                result.Ex           = exc;
-
-            }
-            finally
-            {
-                this.conexion.Close();
-            }
-            return result;
-        }
-
-        public ML.Result Sp_Consulta_Informacion_Alumno_ById(int idStudent)
-        {
-            ML.Result result = new ML.Result();
-            try
-            {
-                this.Conectar();
-                SqlCommand command = new SqlCommand("sp_Consulta_Informacion_Alumno_ById", this.conexion) { CommandType = CommandType.StoredProcedure };
-                command.Parameters.Add(new SqlParameter("@IdAlumno", idStudent));
-                SqlDataReader dataReader = command.ExecuteReader();
-                if (dataReader.Read())
-                {
-                    ML.Student student          = new ML.Student();
-                    student.iIdAlumno           = Convert.ToInt32(dataReader["IdAlumno"]);
-                    student.sNombre             = dataReader["Nombre"].ToString();
-                    student.sApellidoPaterno    = dataReader["ApellidoPaterno"].ToString();
-                    student.sApellidoMaterno    = dataReader["ApellidoMaterno"].ToString();
-                    student.sFechaHoraAlta      = Convert.ToDateTime(dataReader["FechaHoraAlta"]).ToString("dd-MM-yyyy");
-                    student.bEstatus            = (dataReader["Estatus"].ToString() == "True") ? true : false;
-
-                    result.Object       = student;
-                    result.ErrorMessage = "none";
-                    result.Correct      = true;
-                }
-                else
-                {
-                    result.ErrorMessage = "La consulta no retornó ningún alumno";
-                    result.Correct      = false;
-                }
-                command.Parameters.Clear();
-                command.Dispose();
-                dataReader.Close();
-            }
-            catch (Exception exc)
-            {
-                result.Correct      = false;
-                result.ErrorMessage = exc.Message;
-                result.Ex           = exc;
-
-            }
-            finally
-            {
-                this.conexion.Close();
-            }
-            return result;
-        }
-
-        public ML.Result Sp_Edita_Informacion_Alumno(ML.Student student)
-        {
-            ML.Result result = new ML.Result();
-            try
-            {
-                this.Conectar();
-                SqlCommand command = new SqlCommand("sp_Edita_Informacion_Alumno", this.conexion) { CommandType = CommandType.StoredProcedure };
-                command.Parameters.Add(new SqlParameter("@IdAlumno", student.iIdAlumno));
-                command.Parameters.Add(new SqlParameter("@Nombre", student.sNombre));
-                command.Parameters.Add(new SqlParameter("@ApellidoPaterno", student.sApellidoPaterno));
-                command.Parameters.Add(new SqlParameter("@ApellidoMaterno", student.sApellidoMaterno));
+                SqlCommand command = new SqlCommand("sp_Inserta_Informacion_Materia", this.conexion) { CommandType = CommandType.StoredProcedure };
+                command.Parameters.Add(new SqlParameter("@Nombre", subject.sNombre));
+                command.Parameters.Add(new SqlParameter("@Costo", subject.dCosto));
                 if (command.ExecuteNonQuery() > 0)
                 {
                     result.ErrorMessage = "none";
@@ -160,7 +74,7 @@ namespace BL
                 }
                 else
                 {
-                    result.ErrorMessage = "No se pudo editar el alumno";
+                    result.ErrorMessage = "No se pudo registrar la Materia";
                     result.Correct = false;
                 }
                 command.Parameters.Clear();
@@ -180,14 +94,96 @@ namespace BL
             return result;
         }
 
-        public ML.Result Sp_Cambia_Estatus_Alumno(int idStudent, int status)
+        public ML.Result Sp_Consulta_Informacion_Materia_ById(int idSubject)
         {
             ML.Result result = new ML.Result();
             try
             {
                 this.Conectar();
-                SqlCommand command = new SqlCommand("sp_Cambia_Estatus_Alumno", this.conexion) { CommandType = CommandType.StoredProcedure };
-                command.Parameters.Add(new SqlParameter("@IdAlumno", idStudent));
+                SqlCommand command = new SqlCommand("sp_Consulta_Informacion_Materia_ById", this.conexion) { CommandType = CommandType.StoredProcedure };
+                command.Parameters.Add(new SqlParameter("@IdMateria", idSubject));
+                SqlDataReader dataReader = command.ExecuteReader();
+                if (dataReader.Read())
+                {
+                    ML.Subject subject = new ML.Subject();
+                    subject.iIdMateria = Convert.ToInt32(dataReader["IdMateria"]);
+                    subject.sNombre = dataReader["Nombre"].ToString();
+                    subject.dCosto = Convert.ToDecimal(dataReader["Costo"]);
+                    subject.sFechaHoraAlta = Convert.ToDateTime(dataReader["FechaHoraAlta"]).ToString("dd-MM-yyyy");
+                    subject.bEstatus = (dataReader["Estatus"].ToString() == "True") ? true : false;
+
+                    result.Object = subject;
+                    result.ErrorMessage = "none";
+                    result.Correct = true;
+                }
+                else
+                {
+                    result.ErrorMessage = "La consulta no retornó ninguna Materia";
+                    result.Correct = false;
+                }
+                command.Parameters.Clear();
+                command.Dispose();
+                dataReader.Close();
+            }
+            catch (Exception exc)
+            {
+                result.Correct = false;
+                result.ErrorMessage = exc.Message;
+                result.Ex = exc;
+
+            }
+            finally
+            {
+                this.conexion.Close();
+            }
+            return result;
+        }
+
+        public ML.Result Sp_Edita_Informacion_Materia(ML.Subject subject)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                this.Conectar();
+                SqlCommand command = new SqlCommand("sp_Edita_Informacion_Materia", this.conexion) { CommandType = CommandType.StoredProcedure };
+                command.Parameters.Add(new SqlParameter("@IdMateria", subject.iIdMateria));
+                command.Parameters.Add(new SqlParameter("@Nombre", subject.sNombre));
+                command.Parameters.Add(new SqlParameter("@Costo", subject.dCosto));
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    result.ErrorMessage = "none";
+                    result.Correct = true;
+                }
+                else
+                {
+                    result.ErrorMessage = "No se pudo editar la Materia";
+                    result.Correct = false;
+                }
+                command.Parameters.Clear();
+                command.Dispose();
+            }
+            catch (Exception exc)
+            {
+                result.Correct = false;
+                result.ErrorMessage = exc.Message;
+                result.Ex = exc;
+
+            }
+            finally
+            {
+                this.conexion.Close();
+            }
+            return result;
+        }
+
+        public ML.Result Sp_Cambia_Estatus_Materia(int idSubject, int status)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                this.Conectar();
+                SqlCommand command = new SqlCommand("sp_Cambia_Estatus_Materia", this.conexion) { CommandType = CommandType.StoredProcedure };
+                command.Parameters.Add(new SqlParameter("@IdMateria", idSubject));
                 command.Parameters.Add(new SqlParameter("@Estatus", status));
                 if (command.ExecuteNonQuery() > 0)
                 {
@@ -196,7 +192,7 @@ namespace BL
                 }
                 else
                 {
-                    result.ErrorMessage = "No se pudo editar el alumno";
+                    result.ErrorMessage = "No se pudo editar la Materia";
                     result.Correct = false;
                 }
                 command.Parameters.Clear();
