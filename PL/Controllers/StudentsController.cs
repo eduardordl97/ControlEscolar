@@ -14,6 +14,7 @@ namespace PL.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public JsonResult LoadDataStudents()
         {
@@ -22,7 +23,7 @@ namespace PL.Controllers
             StringBuilder tableHtml = new StringBuilder();
             try
             {
-                result = students.GetAll();
+                result = students.Sp_Consulta_Informacion_Alumnos();
                 if (result.Objects.Count > 0)
                 {
                     foreach (ML.Student student in result.Objects)
@@ -45,8 +46,31 @@ namespace PL.Controllers
             catch (Exception exc)
             {
                 result.ErrorMessage = exc.Message.ToString();
+                result.Correct = false;
+                return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
             }
             return Json(new { Correct = result.Correct, Error = result.ErrorMessage, Html = tableHtml.ToString(), Data = result.Objects });
         }
+
+        [HttpPost]
+        public JsonResult SaveData(ML.Student student)
+        {
+            BL.Students students = new BL.Students();
+            ML.Result result     = new ML.Result();
+            try
+            {
+                result = students.Sp_Inserta_Informacion_Alumno(student);
+                
+            }
+            catch (Exception exc)
+            {
+                result.ErrorMessage = exc.Message.ToString();
+                result.Correct = false;
+                return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+            }
+            return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+        }
+
+        
     }
 }

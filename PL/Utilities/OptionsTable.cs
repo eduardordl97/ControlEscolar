@@ -20,7 +20,7 @@ namespace PL.Utilities
         public static string ButtonActive(int id)
         {
             return "<button class='btn btn-sm btn-outilne-success' data-toggle='tooltip' data-placement='bottom' title='Activar' onclick='fActiveData(" + id + ",1);'><i class='fas fa-check-circle'></i></button>";
-
         }
+
     }
 }

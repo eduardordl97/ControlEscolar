@@ -10,7 +10,7 @@ namespace BL
 {
     public class Students : DL.Connection
     {
-        public ML.Result GetAll()
+        public ML.Result Sp_Consulta_Informacion_Alumnos()
         {
             ML.Result result = new ML.Result();
             try
@@ -44,6 +44,43 @@ namespace BL
                 command.Parameters.Clear();
                 command.Dispose();
                 dataReader.Close();
+            }
+            catch (Exception exc)
+            {
+                result.Correct = false;
+                result.ErrorMessage = exc.Message;
+                result.Ex = exc;
+
+            }
+            finally
+            {
+                this.conexion.Close();
+            }
+            return result;
+        }
+
+        public ML.Result Sp_Inserta_Informacion_Alumno(ML.Student student)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                this.Conectar();
+                SqlCommand command = new SqlCommand("sp_Inserta_Informacion_Alumno", this.conexion) { CommandType = CommandType.StoredProcedure };
+                command.Parameters.Add(new SqlParameter("@Nombre", student.sNombre));
+                command.Parameters.Add(new SqlParameter("@ApellidoPaterno", student.sApellidoPaterno));
+                command.Parameters.Add(new SqlParameter("@ApellidoMaterno", student.sApellidoMaterno));
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    result.ErrorMessage = "none";
+                    result.Correct = true;
+                }
+                else
+                {
+                    result.ErrorMessage = "No se pudo registrar el alumno";
+                    result.Correct = false;
+                }
+                command.Parameters.Clear();
+                command.Dispose();
             }
             catch (Exception exc)
             {

@@ -33,6 +33,49 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-students" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title txt-b" id="label-modal">Registrar Alumno</h5>
+                <button type="button" class="btn-close text-danger" data-bs-dismiss="modal" aria-label="Close" id="icon-closemodal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="form-students">
+                    <div class="col-md-12 row">
+                        <div class="form-group col-md-12 mb-2">
+                            <label class=" mb-2" title="Longitud permitida 50 caracteres">Nombre:</label>
+                            <input class="form-control form-control-sm" id="input-name" type="text" tabindex="1" minlength="2" maxlength="50" data-placeholder="Nombre" />
+                            <label id="label-input-name" class="mt-1 d-none"></label>
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
+                            <label class="mb-2" title="Longitud permitida 50 caracteres">Apellido Paterno:</label>
+                            <input class="form-control form-control-sm" id="input-last-name" type="text" tabindex="2" minlength="2" maxlength="50" data-placeholder="Apellido Paterno" />
+                            <label id="label-input-last-name" class="mt-1 d-none"></label>
+                        </div>
+                        <div class="form-group col-md-6 mb-2">
+                            <label class="mb-2" title="Longitud permitida 50 caracteres">Apellido Materno:</label>
+                            <input class="form-control form-control-sm" id="input-second-last-name" type="text" tabindex="3" minlength="2" maxlength="50" data-placeholder="Apellido Materno" />
+                            <label id="label-input-second-last-name" class="mt-1 d-none"></label>
+                        </div>
+                        <input class="form-control form-control-sm" id="input-id-student" type="hidden" />
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer" id="container-options">
+                <button type="button" class="btn btn-secondary btn-sm btn-icon-split shadow" data-bs-dismiss="modal" id="button-closemodal">
+                    <span class="icon text-white-50">
+                        <i class="fas fa-times"></i>
+                    </span>
+                    <span class="text"> Cerrar</span>
+                </button>
+                <div id="container-option">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 <script type="text/javascript" src="~/Scripts/Students/students.js"></script>
