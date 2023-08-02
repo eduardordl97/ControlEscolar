@@ -179,5 +179,40 @@ namespace BL
             }
             return result;
         }
+
+        public ML.Result Sp_Cambia_Estatus_Alumno(int idStudent, int status)
+        {
+            ML.Result result = new ML.Result();
+            try
+            {
+                this.Conectar();
+                SqlCommand command = new SqlCommand("sp_Cambia_Estatus_Alumno", this.conexion) { CommandType = CommandType.StoredProcedure };
+                command.Parameters.Add(new SqlParameter("@IdAlumno", idStudent));
+                command.Parameters.Add(new SqlParameter("@Estatus", status));
+                if (command.ExecuteNonQuery() > 0)
+                {
+                    result.ErrorMessage = "none";
+                    result.Correct = true;
+                }
+                else
+                {
+                    result.ErrorMessage = "No se pudo editar el alumno";
+                    result.Correct = false;
+                }
+                command.Parameters.Clear();
+                command.Dispose();
+            }
+            catch (Exception exc)
+            {
+                result.Correct = false;
+                result.ErrorMessage = exc.Message;
+                result.Ex = exc;
+            }
+            finally
+            {
+                this.conexion.Close();
+            }
+            return result;
+        }
     }
 }

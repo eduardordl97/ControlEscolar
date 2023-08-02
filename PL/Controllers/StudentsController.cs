@@ -108,6 +108,24 @@ namespace PL.Controllers
             return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
         }
 
+        [HttpPost]
+        public JsonResult ActiveInactiveData(int idStudent, int status)
+        {
+            BL.Students students = new BL.Students();
+            ML.Result result = new ML.Result();
+            try
+            {
+                result = students.Sp_Cambia_Estatus_Alumno(idStudent,status);
+            }
+            catch (Exception exc)
+            {
+                result.ErrorMessage = exc.Message.ToString();
+                result.Correct = false;
+                return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+            }
+            return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+        }
+
 
     }
 }

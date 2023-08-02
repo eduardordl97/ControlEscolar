@@ -15,6 +15,7 @@
     fLoadTable = () => {
         $("#table-dataTable").DataTable({
             responsive: true,
+            "aaSorting": [],
             "language": {
                 "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
             },
@@ -181,6 +182,70 @@
                         fDynamicAlertsValidations('Error!', exception, 'error', 4000, null);
                     }
                 });
+            }
+        } catch (error) {
+            fDynamicAlertsValidations('Error!', error, 'error', 4000, null);
+        }
+    }
+
+    fActiveData = (idStudent, status) => {
+        try {
+            if (parseInt(idStudent) > 0) {
+                $.ajax({
+                    url: "../Students/ActiveInactiveData",
+                    type: "POST",
+                    data: { idStudent: parseInt(idStudent), status: parseInt(status) },
+                    beforeSend: () => {
+                        fAlertLoading();
+                    }, success: (request) => {
+                        if (request.Correct) {
+                            swal.close();
+                            fDynamicAlertsValidations('Activo', 'El Usuario ha sido dado de alta correctamente', 'success', 2000, null);
+                            setTimeout(() => {
+                                fShowData();
+                            }, 2000);
+                        } else {
+                            fDynamicAlertsValidations('Error!', request.Error, 'error', 3000, null);
+                        }
+                    }, error: (exception) => {
+                        fDynamicAlertsValidations('Error!', exception, 'error', 4000, null);
+                    }
+                });
+            } else {
+                fDynamicAlertsValidations('Error', 'Accion inválida', 'error', 2000, null);
+                location.reload();
+            }
+        } catch (error) {
+            fDynamicAlertsValidations('Error!', error, 'error', 4000, null);
+        }
+    }
+
+    fInactiveData = (idStudent, status) => {
+        try {
+            if (parseInt(idStudent) > 0) {
+                $.ajax({
+                    url: "../Students/ActiveInactiveData",
+                    type: "POST",
+                    data: { idStudent: parseInt(idStudent), status: parseInt(status) },
+                    beforeSend: () => {
+                        fAlertLoading();
+                    }, success: (request) => {
+                        if (request.Correct) {
+                            swal.close();
+                            fDynamicAlertsValidations('Inactivo', 'El Alumno ha sido dado de baja correctamente', 'success', 2000, null);
+                            setTimeout(() => {
+                                fShowData();
+                            }, 2000);
+                        } else {
+                            fDynamicAlertsValidations('Error!', request.Error, 'error', 3000, null);
+                        }
+                    }, error: (exception) => {
+                        fDynamicAlertsValidations('Error!', exception, 'error', 4000, null);
+                    }
+                });
+            } else {
+                fDynamicAlertsValidations('Error', 'Accion inválida', 'error', 2000, null);
+                location.reload();
             }
         } catch (error) {
             fDynamicAlertsValidations('Error!', error, 'error', 4000, null);
