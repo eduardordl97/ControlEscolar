@@ -12,7 +12,20 @@ namespace PL.Controllers
     {
         public ActionResult Subjects()
         {
-            return View();
+            var session = Session["rolSession"];
+            if (session == "ADMIN")
+            {
+                return View();
+            }
+            else if (session == "STUDENT")
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "Login");
+
+            }
         }
 
         [HttpPost]

@@ -15,5 +15,6 @@ namespace ML
         public DateTime dtFechaHoraAlta { get; set; }
         public string sFechaHoraAlta { get; set; }
         public bool bEstatus { get; set; }
+        public bool bAdmin { get; set; }
     }
 }
