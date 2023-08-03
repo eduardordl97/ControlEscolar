@@ -2,3 +2,16 @@
     ViewBag.Title = "Home Page";
 }
 
+<div id="div-image" class="container-fluid text-center">
+
+    <h4>Bienvenido @Session["nameSession"] </h4>
+    @if (Session["rolSession"] == "ADMIN")
+    {
+        <img class="img-fluid" src="~/Assets/img/undraw_usability_testing_re_uu1g.svg" style="margin-top:36px; width:50%;" />
+    }
+    else if (Session["rolSession"] == "STUDENT")
+    {
+        <img class="img-fluid" src="~/Assets/img/undraw_brainstorming_re_1lmw.svg" style="margin-top:36px; width:50%;" />
+    }
+
+</div>

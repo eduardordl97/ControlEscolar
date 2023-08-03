@@ -159,3 +159,29 @@ ButtonEdit = () => {
         <button class='btn btn-sm btn-success' onclick='fUpdateData();'> <i class='fas fa-plus-circle mr-2'></i> Guardar </button>
     `;
 }
+
+// Funcion que valida que el dato seleccionado en el datalist es valido
+fCheckValidValueDataList = (datalist, inputlist) => {
+    let flag = false;
+    if (document.getElementById(datalist) != null) {
+        if (document.getElementById(datalist).querySelector("option[value='" + inputlist.value.trim() + "']")) {
+            flag = true;
+        } else {
+            flag = false;
+        }
+    } else {
+        alert('El elemento ' + datalist + ' no existe en el documento');
+    }
+    return flag;
+}
+
+fValueDataList = (element) => {
+    let value = "";
+    const attribute = element.getAttribute('list');
+    if (attribute != null) {
+        value = document.querySelector('#' + attribute + ' option[value="' + element.value.trim() + '"]').dataset.value;
+    } else {
+        fDynamicAlertsValidations('Atención!', 'El elemento ' + element.getAttribute("data-placeholder") + " no es valido para una lista de datos", 'warning', 1500, element);
+    }
+    return value;
+}

@@ -36,7 +36,7 @@ namespace PL.Controllers
             StringBuilder tableHtml = new StringBuilder();
             try
             {
-                result = subjects.Sp_Consulta_Informacion_Alumnos();
+                result = subjects.Sp_Consulta_Informacion_Materias();
                 if(result.Objects != null)
                 {
                     if (result.Objects.Count > 0)

@@ -10,8 +10,6 @@ namespace PL.Controllers
     {
         public ActionResult Login()
         {
-
-            
             return View();
         }
 
@@ -33,6 +31,8 @@ namespace PL.Controllers
                     {
                         System.Web.HttpContext.Current.Session["rolSession"] = "STUDENT";
                     }
+                    System.Web.HttpContext.Current.Session["nameSession"] = ((ML.Student)result.Object).sNombre;
+                    System.Web.HttpContext.Current.Session["idUserSession"] = ((ML.Student)result.Object).iIdAlumno;
                 }
                 result.Correct = true;
 
@@ -44,6 +44,14 @@ namespace PL.Controllers
                 return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
             }
             return Json(new { Correct = result.Correct, Error = result.ErrorMessage });
+        }
+
+        public ActionResult LogOut()
+        {
+            Session.Remove("rolSession");
+            Session.Remove("nameSession");
+            Session.Remove("idUserSession");
+            return RedirectToAction("Login", "Login");
         }
     }
 }

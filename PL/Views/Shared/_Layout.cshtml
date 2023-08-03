@@ -5,15 +5,15 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <title>@ViewBag.Title - Control Escolar</title>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+
     <link rel="stylesheet" type="text/css" href="~/Assets/datatables/css/dataTables.bootstrap4.min.css" />
     <link rel="stylesheet" type="text/css" href="~/Assets/bootstrap/css/bootstrap-5.1.3.min.css" />
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
-
     <script type="text/javascript" src="~/Assets/datatables/js/datatables.min.js"></script>
     <script type="text/javascript" src="~/Assets/datatables/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript" src="~/Scripts/Utilities/utilities.js"></script>
@@ -22,35 +22,41 @@
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    
+
     <nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded">
-
-        @*<a class="navbar-brand ms-4" href="#">Navbar</a>*@
-        @Html.ActionLink("Control Escolar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand ms-4" })
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav">
-                @if (Session["rolSession"] != null)
-                {
-                    if (Session["rolSession"] != "ADMIN")
+        <div class="container-fluid">
+            @Html.ActionLink("Control Escolar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand ms-4" })
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarText">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    @if (Session["rolSession"] != null)
                     {
-                        <li class="nav-item">@Html.ActionLink("Alumnos", "Students", "Students", null, new { @class = "nav-link" })</li>
-                        <li class="nav-item">@Html.ActionLink("Materias", "Subjects", "Subjects", null, new { @class = "nav-link" })</li>
-                    }
-                    else if (Session["rolSession"] != "STUDENT")
-                    {
-                        <li class="nav-item">@Html.ActionLink("Materias", "Subjects", "Subjects", null, new { @class = "nav-link" })</li>
-                    }
+                        if (Session["rolSession"] == "ADMIN")
+                        {
+                            <li class="nav-item">@Html.ActionLink("Alumnos", "Students", "Students", null, new { @class = "nav-link" })</li>
+                            <li class="nav-item">@Html.ActionLink("Materias", "Subjects", "Subjects", null, new { @class = "nav-link" })</li>
+                        }
+                        else if (Session["rolSession"] == "STUDENT")
+                        {
+                            <li class="nav-item">@Html.ActionLink("Inscripción", "SubjectsStudent", "SubjectsStudent", null, new { @class = "nav-link" })</li>
 
-                }
+                        }
 
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
-                @*<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>*@
-            </form>
+                    }
+                </ul>
+                <div class="navbar-text">
+                    <ul class="navbar-nav">
+                        @if (Session["rolSession"] != null)
+                        {
+                            <li class="nav-item">@Html.ActionLink("Cerrar Sesión", "LogOut", "Login", null, new { @class = "nav-link" })</li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
         </div>
     </nav>
 

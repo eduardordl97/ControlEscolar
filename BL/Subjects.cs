@@ -10,7 +10,7 @@ namespace BL
 {
     public class Subjects : DL.Connection
     {
-        public ML.Result Sp_Consulta_Informacion_Alumnos()
+        public ML.Result Sp_Consulta_Informacion_Materias()
         {
             ML.Result result = new ML.Result();
             try

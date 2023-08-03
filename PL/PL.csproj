@@ -124,6 +124,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
     <Compile Include="Controllers\SubjectsController.cs" />
+    <Compile Include="Controllers\SubjectsStudentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -136,6 +137,9 @@
     <Content Include="Assets\datatables\css\dataTables.bootstrap4.min.css" />
     <Content Include="Assets\datatables\js\dataTables.bootstrap4.min.js" />
     <Content Include="Assets\datatables\js\datatables.min.js" />
+    <Content Include="Assets\img\undraw_brainstorming_re_1lmw.svg" />
+    <Content Include="Assets\img\undraw_education_f8ru.svg" />
+    <Content Include="Assets\img\undraw_usability_testing_re_uu1g.svg" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -160,6 +164,7 @@
     <Content Include="Scripts\Login\login.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Scripts\Students\students.js" />
+    <Content Include="Scripts\SubjectsStudent\subjects-students.js" />
     <Content Include="Scripts\Subjects\subjects.js" />
     <Content Include="Scripts\Utilities\utilities.js" />
     <Content Include="Web.config" />
@@ -179,6 +184,7 @@
     <Content Include="Views\Students\Students.cshtml" />
     <Content Include="Views\Subjects\Subjects.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\SubjectsStudent\SubjectsStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
