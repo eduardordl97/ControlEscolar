@@ -19,7 +19,7 @@ namespace PL.Controllers
             }
             else if (session == "STUDENT")
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
             else
             {

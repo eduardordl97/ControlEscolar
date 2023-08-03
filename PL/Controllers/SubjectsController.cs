@@ -1,6 +1,7 @@
 ﻿using PL.Utilities;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -19,7 +20,7 @@ namespace PL.Controllers
             }
             else if (session == "STUDENT")
             {
-                return View();
+                return RedirectToAction("Index", "Home");
             }
             else
             {
@@ -75,6 +76,13 @@ namespace PL.Controllers
             ML.Result result = new ML.Result();
             try
             {
+                string specialCharacters = ConfigurationManager.AppSettings["SpecialCharacters"];
+                List<string> characterList = new List<string>(specialCharacters.Split(','));
+                foreach (string character in characterList)
+                {
+                    subject.sNombre = subject.sNombre.Replace(character,"");
+                }
+
                 result = subjects.Sp_Inserta_Informacion_Materia(subject);
 
             }

@@ -23,30 +23,14 @@
 
                         }, success: (request) => {
                             if (request.Correct === true && request.Error === 'none') {
-                                //sessionStorage.setItem("userActive", 1);
                                 fDynamicAlertsValidations('Inicio de Sesión', 'Se ha iniciado sesión correctamente', 'success', 3000, null);
-                                //const data = request.Data;
-
-                                //localStorage.setItem('Data', datas);
-
-                                //id = request.KeyUser;
-
-                                //localStorage.setItem('Id', id);
-
                                 setTimeout(() => {
 
                                     location.href = "/Home/Index";
 
                                 }, 3000);
-                                
-
-
                             } else {
-
-                                //sessionStorage.setItem("userActive", 0);
-
                                 fDynamicAlertsValidations('Atención', request.Error, 'info', 1500, null);
-
                             }
 
                         }, error: (jqXHR, exception) => {
@@ -70,4 +54,10 @@
 
         }
     };
+
+    $('.input-Upper').on('keyup', function (evt) {
+        $(this).val(function (_, val) {
+            return val.toUpperCase();
+        });
+    });
 });
