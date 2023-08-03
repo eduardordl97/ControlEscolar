@@ -89,13 +89,13 @@ namespace PL.Controllers
         }
 
         [HttpPost]
-        public JsonResult ShowDataById(int idSubject)
+        public JsonResult ShowDataById(int idStudent)
         {
-            BL.Subjects subjects = new BL.Subjects();
+            BL.Students students = new BL.Students();
             ML.Result result     = new ML.Result();
             try
             {
-                result = subjects.Sp_Consulta_Informacion_Materia_ById(idSubject);
+                result = students.Sp_Consulta_Informacion_Alumno_ById(idStudent);
             }
             catch (Exception exc)
             {
