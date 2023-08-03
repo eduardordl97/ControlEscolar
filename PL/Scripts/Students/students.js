@@ -71,6 +71,9 @@
         inputIdStudent.value = "";
         document.getElementById('label-modal').textContent = "Registrar Alumno";
         fClearInputs(inputs);
+        document.getElementById('label-' + inputName.id).classList.add('d-none');
+        document.getElementById('label-' + inputLastName.id).classList.add('d-none');
+        document.getElementById('label-' + inputSecondLastName.id).classList.add('d-none');
         document.getElementById('container-option').innerHTML = ButtonSave();
         $("#modal-students").modal("show");
     }
@@ -143,7 +146,11 @@
                         inputLastName.style.borderWidth         = '2px';
                         inputLastName.style.borderColor         = 'green';
                         inputSecondLastName.style.borderWidth   = '2px';
-                        inputSecondLastName.style.borderColor   = 'green';
+                        inputSecondLastName.style.borderColor = 'green';
+
+                        document.getElementById('label-' + inputName.id).classList.add('d-none');
+                        document.getElementById('label-' + inputLastName.id).classList.add('d-none');
+                        document.getElementById('label-' + inputSecondLastName.id).classList.add('d-none');
 
                     } else {
                         fDynamicAlertsValidations('Atención', request.Error, 'error', 3000, null);

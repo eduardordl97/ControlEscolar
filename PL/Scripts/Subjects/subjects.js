@@ -68,6 +68,8 @@
         inputIdSubject.value = "";
         document.getElementById('label-modal').textContent = "Registrar Materia";
         fClearInputs(inputs);
+        document.getElementById('label-' + inputName.id).classList.add('d-none');
+        document.getElementById('label-' + inputCost.id).classList.add('d-none');
         document.getElementById('container-option').innerHTML = ButtonSave();
         $("#modal-subjects").modal("show");
     }
@@ -137,6 +139,10 @@
                         inputName.style.borderColor = 'green';
                         inputCost.style.borderWidth = '2px';
                         inputCost.style.borderColor = 'green';
+
+                        document.getElementById('label-' + inputName.id).classList.add('d-none');
+                        document.getElementById('label-' + inputCost.id).classList.add('d-none');
+
 
                     } else {
                         fDynamicAlertsValidations('Atención', request.Error, 'error', 3000, null);
